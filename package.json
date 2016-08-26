@@ -1,0 +1,24 @@
+{
+  "name": "nitro",
+  "version": "0.0.0",
+  "description": "PoC - kick-off es7 and koa.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CartoDB/nitro.git"
+  },
+  "keywords": [
+    "es7",
+    "koa",
+    "web"
+  ],
+  "author": "Daniel García Aubert <dgaubert@carto.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/CartoDB/nitro/issues"
+  },
+  "homepage": "https://github.com/CartoDB/nitro#readme"
+}
