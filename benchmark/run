@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo
+NODE_ENV=test ../node_modules/.bin/babel-node ../$s1 & pid=$!
+
+sleep 2
+
+wrk 'http://localhost:3000/' \
+  -d 3 \
+  -c 50 \
+  -t 8 \
+  | grep 'Requests/sec'
+
+kill $pid

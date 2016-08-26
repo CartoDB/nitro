@@ -2,10 +2,7 @@
   "name": "nitro",
   "version": "0.0.0",
   "description": "PoC - kick-off es7 and koa.js",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha --recursive test/"
-  },
+  "main": "app.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CartoDB/nitro.git"
@@ -20,5 +17,41 @@
   "bugs": {
     "url": "https://github.com/CartoDB/nitro/issues"
   },
-  "homepage": "https://github.com/CartoDB/nitro#readme"
+  "homepage": "https://github.com/CartoDB/nitro#readme",
+  "dependencies": {
+    "koa": "2.0.0-alpha.5"
+  },
+  "files": [
+    "dist"
+  ],
+  "babel": {
+    "plugins": [
+      "transform-es2015-modules-commonjs",
+      "transform-async-to-generator"
+    ]
+  },
+  "scripts": {
+    "test": "mocha --recursive test/",
+    "start": "babel-node app.js",
+    "build": "babel lib --out-dir dist",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "istanbul": "0.4.5",
+    "standard": "8.0.0",
+    "mocha": "3.0.2",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.8.0",
+    "babel-plugin-transform-async-to-generator": "6.8.0",
+    "babel-cli": "6.8.0"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach"
+    ]
+  }
 }
