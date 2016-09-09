@@ -2,7 +2,7 @@
   "name": "nitro",
   "version": "0.0.0",
   "description": "PoC - kick-off es7 and koa.js",
-  "main": "app.js",
+  "main": "lib/app.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CartoDB/nitro.git"
@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/CartoDB/nitro#readme",
   "dependencies": {
-    "koa": "2.0.0-alpha.5"
+    "koa": "2.0.0-alpha.5",
+    "koa-router": "7.0.1"
   },
   "files": [
     "dist"
@@ -32,7 +33,7 @@
   },
   "scripts": {
     "test": "mocha --recursive test/",
-    "start": "babel-node app.js",
+    "start": "babel-node lib/app.js",
     "build": "babel lib --out-dir dist",
     "prepublish": "npm run build"
   },
