@@ -26,19 +26,25 @@ describe('leader', () => {
 
     this.cluster = new Cluster()
 
-    this.sigusr2Listener = new Sigusr2Listener()
-    this.sigusr2ListenerListenInfoStub = this.sandbox.stub(this.sigusr2Listener, 'listen')
-
     this.serverExitListener = new ServerExitListener()
-    this.serverExitListenerListenInfoStub = this.sandbox.stub(this.serverExitListener, 'listen')
+    this.serverExitListener.listen = this.sandbox.spy()
+    this.serverExitListener.remove = this.sandbox.spy()
 
     this.sigusr2Listener = new Sigusr2Listener()
-    this.sigusr2ListenerListenInfoStub = this.sandbox.stub(this.sigusr2Listener, 'listen')
+    this.sigusr2Listener.listen = this.sandbox.spy()
+    this.sigusr2Listener.remove = this.sandbox.spy()
 
     this.sighupListener = new SighupListener()
-    this.sighupListenerListenInfoStub = this.sandbox.stub(this.sighupListener, 'listen')
+    this.sighupListener.listen = this.sandbox.spy()
+    this.sighupListener.remove = this.sandbox.spy()
 
-    this.serverManager = new ServerManager(this.cluster, this.sigusr2Listener, this.serverExitListener, this.sighupListener, this.logger)
+    this.serverManager = new ServerManager(
+      this.cluster,
+      this.sigusr2Listener,
+      this.serverExitListener,
+      this.sighupListener,
+      this.logger
+    )
 
     this.leader = new Leader(this.serverManager, this.logger)
   })
@@ -48,32 +54,33 @@ describe('leader', () => {
   })
 
   it('.run() should create as many workers as CPUs there are in the machine', () => {
-    var loggerInfoStub = this.sandbox.stub(this.logger, 'info')
-    var serverManagerForkStub = this.sandbox.stub(this.serverManager, 'fork')
+    this.logger.info = this.sandbox.spy()
+    var serverManagerForkStub = this.sandbox.stub(this.serverManager, 'fork').returns(undefined)
 
-    this.leader.run()
-
-    assert.ok(loggerInfoStub.calledOnce)
-    assert.equal(serverManagerForkStub.callCount, os.cpus().length)
+    return this.leader.run()
+      .then(() => {
+        assert.ok(this.logger.info.calledOnce)
+        assert.equal(serverManagerForkStub.callCount, os.cpus().length)
+      })
   })
 
   it('.exit() should exit successfully', () => {
-    var loggerInfoStub = this.sandbox.stub(this.logger, 'warn')
-    var processExitStub = this.sandbox.stub(process, 'exit')
+    this.logger.debug = this.sandbox.spy()
+    const processExitStup = this.sandbox.stub(process, 'exit').returns(undefined)
 
     this.leader.exit(0)
 
-    assert.ok(loggerInfoStub.calledOnce)
-    assert.ok(processExitStub.calledWithExactly(0))
+    assert.ok(this.logger.debug.called)
+    assert.ok(processExitStup.calledWithExactly(0))
   })
 
   it('.exit(1) should stop server and exit succesfully with error', () => {
-    var loggerInfoStub = this.sandbox.stub(this.logger, 'warn')
-    var processExitStub = this.sandbox.stub(process, 'exit')
+    this.logger.debug = this.sandbox.spy()
+    const processExitStup = this.sandbox.stub(process, 'exit').returns(undefined)
 
     this.leader.exit(1)
 
-    assert.ok(loggerInfoStub.calledOnce)
-    assert.ok(processExitStub.calledWithExactly(1))
+    assert.ok(this.logger.debug.called)
+    assert.ok(processExitStup.calledWithExactly(1))
   })
 })

@@ -13,8 +13,7 @@ describe('app', () => {
 
     this.provider = {
       use: () => {},
-      listen: () => {},
-      disable: () => {}
+      listen: () => {}
     }
     this.middlewares = new AppMiddlewares()
   })
@@ -24,13 +23,14 @@ describe('app', () => {
   })
 
   it('.listen() should listen on port 3000', () => {
-    var appListenStub = this.sandbox.stub(this.provider, 'listen')
-    var middlewaresRegistAllStub = this.sandbox.stub(this.middlewares, 'regist')
+    this.provider.disable = this.sandbox.spy()
+    this.provider.listen = this.sandbox.spy()
+    this.middlewares.regist = this.sandbox.spy()
 
     this.app = new App(this.provider, this.middlewares)
     this.server = this.app.listen(3000)
 
-    assert.ok(appListenStub.calledOnce)
-    assert.ok(middlewaresRegistAllStub.calledOnce)
+    assert.ok(this.provider.listen.calledOnce)
+    assert.ok(this.middlewares.regist.calledOnce)
   })
 })
