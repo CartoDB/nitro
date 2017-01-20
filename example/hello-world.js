@@ -22,6 +22,10 @@ class HelloWorld {
       this.nitro.app.use(router.routes())
     }
   }
+
+  run () {
+    return this.nitro.run()
+  }
 }
 
 module.exports = HelloWorld

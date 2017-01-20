@@ -25,5 +25,5 @@ const exampleName = flags.name
 const Example = require(`./${exampleName}`)
 const example = new Example()
 
-example.nitro.run()
+example.run()
   .catch(err => example.nitro.logger.error(err))
