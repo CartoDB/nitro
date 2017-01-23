@@ -1,4 +1,10 @@
 import meow from 'meow'
+import HelloWorld from './hello-world'
+import ClusteredHelloWorld from './clustered-hello-world'
+
+const examples = new Map()
+examples.set('hello-world', HelloWorld)
+examples.set('clustered-hello-world', ClusteredHelloWorld)
 
 const help = `
   Usage:
@@ -21,7 +27,7 @@ const options = {
 
 const flags = meow({ help }, options).flags
 const exampleName = flags.name
-const Example = require(`./${exampleName}`)
+const Example = examples.get(exampleName)
 const example = new Example()
 
 example.run()

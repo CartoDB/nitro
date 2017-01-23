@@ -1,4 +1,4 @@
-import Nitro from '../main/nitro'
+import Nitro from '../'
 import Router from 'koa-router'
 
 export default class HelloWorld {
