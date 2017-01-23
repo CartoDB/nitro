@@ -28,7 +28,6 @@
   "dependencies": {
     "bunyan": "1.8.5",
     "koa": "2.0.0-alpha.5",
-    "koa-router": "7.0.1",
     "meow": "3.7.0",
     "node-fetch": "1.6.3",
     "node-statsd": "0.1.1",
@@ -36,24 +35,38 @@
     "read-pkg-up": "2.0.0"
   },
   "scripts": {
-    "example": "node --harmony-async-await example",
-    "benchmark": "node --harmony-async-await benchmark",
-    "coverage": "istanbul cover _mocha test/ -- --harmony-async-await --recursive -r test/setup",
-    "lint": "standard index.js \"lib/**/*.js\" \"test/**/*.js\"",
+    "benchmark": "node lib/benchmark",
+    "build": "babel src -d lib --source-maps inline",
+    "coverage": "istanbul cover _mocha lib/test/ -- --recursive -r lib/test/setup",
+    "example": "node lib/example",
+    "lint": "standard \"src/**/*.js\"",
+    "postinstall": "npm run build",
+    "postversion": "git push && git push --tags",
+    "prepublish": "npm run build",
     "pretest": "npm run lint",
-    "start": "node .",
-    "test": "mocha --harmony-async-await --recursive -r test/setup test/",
-    "test:watch": "npm run test -- -w",
     "preversion": "npm test",
+    "test": "mocha --recursive -r source-map-support/register -r lib/test/setup lib/test/",
+    "test:watch": "npm run test -- -w",
     "version": "npm run benchmark -- -r && git add -A benchmark",
-    "postversion": "git push && git push --tags"
+    "watch": "babel src -d lib --source-maps inline --watch"
   },
   "devDependencies": {
+    "babel-cli": "6.22.2",
+    "babel-plugin-transform-async-to-generator": "6.22.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.22.0",
     "istanbul": "0.4.5",
+    "koa-router": "7.1.0",
     "mocha": "3.2.0",
     "prepend-file": "1.3.1",
-    "sinon": "1.17.6",
+    "sinon": "1.17.7",
+    "source-map-support": "0.4.10",
     "standard": "8.6.0"
+  },
+  "babel": {
+    "plugins": [
+      "transform-es2015-modules-commonjs",
+      "transform-async-to-generator"
+    ]
   },
   "standard": {
     "globals": [

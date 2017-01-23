@@ -1,0 +1,6 @@
+src
+lib/benchmark/
+lib/example/
+lib/test/
+*.log
+DS_Store
