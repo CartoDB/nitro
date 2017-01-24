@@ -1,6 +1,6 @@
-import Listener from '../../listener'
+import ListenerAbstract from '../../listener-abstract'
 
-export default class Sigusr2Listener extends Listener {
+export default class Sigusr2Listener extends ListenerAbstract {
   constructor (emitter, logger) {
     super(emitter, logger)
     this.event = 'SIGUSR2'

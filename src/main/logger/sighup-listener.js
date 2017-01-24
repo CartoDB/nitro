@@ -1,6 +1,6 @@
-import Listener from '../listener'
+import ListenerAbstract from '../listener-abstract'
 
-export default class SighupListener extends Listener {
+export default class SighupListener extends ListenerAbstract {
   constructor (emitter, logger) {
     super(emitter, logger)
     this.event = 'SIGHUP'

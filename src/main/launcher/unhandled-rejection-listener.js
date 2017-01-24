@@ -1,6 +1,6 @@
-import Listener from '../listener'
+import ListenerAbstract from '../listener-abstract'
 
-export default class UnhandledRejectionListener extends Listener {
+export default class UnhandledRejectionListener extends ListenerAbstract {
   constructor (emitter, logger) {
     super(emitter, logger)
     this.event = 'unhandledRejection'

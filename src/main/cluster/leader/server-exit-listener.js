@@ -1,6 +1,6 @@
-import Listener from '../../listener'
+import ListenerAbstract from '../../listener-abstract'
 
-export default class ServerExitListener extends Listener {
+export default class ServerExitListener extends ListenerAbstract {
   constructor (emitter, logger) {
     super(emitter, logger)
     this.event = 'exit'
