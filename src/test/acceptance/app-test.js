@@ -7,28 +7,22 @@ describe('end-to-end app examples', function () {
     this.sut = new HelloWorld({ port: 0 })
   })
 
-  beforeEach(function () {
-    return this.sut.nitro.run()
-      .then(httpServer => {
-        this.port = httpServer.address().port
-      })
+  beforeEach(async function () {
+    const httpServer = await this.sut.nitro.run()
+    this.port = httpServer.address().port
   })
 
   afterEach(function () {
     this.sut.nitro.close()
   })
 
-  it('\'/\' should response 200 ok', function () {
-    return fetch(`http://localhost:${this.port}/`)
-      .then(res => {
-        assert.ok(res.ok)
-        assert.equal(res.status, 200)
-        assert.equal(res.headers.get('content-type'), 'text/html')
+  it('\'/\' should response 200 ok', async function () {
+    const res = await fetch(`http://localhost:${this.port}/`)
+    assert.ok(res.ok)
+    assert.equal(res.status, 200)
+    assert.equal(res.headers.get('content-type'), 'text/html')
 
-        return res.text()
-      })
-      .then(body => {
-        assert.equal(body, 'Hello World')
-      })
+    const body = await res.text()
+    assert.equal(body, 'Hello World')
   })
 })

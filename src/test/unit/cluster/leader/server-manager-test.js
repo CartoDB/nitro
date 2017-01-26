@@ -98,7 +98,7 @@ describe('server-manager', function () {
     assert.ok(!serverManagerForkStub.calledOnce)
   })
 
-  it('.reloadAllServers() should restart all workers', function () {
+  it('.reloadAllServers() should restart all workers', async function () {
     var loggerInfoStub = this.sandbox.stub(this.logger, 'info')
 
     this.cluster.workers = {
@@ -109,11 +109,9 @@ describe('server-manager', function () {
     var serverManagerReloadStub = this.sandbox.stub(this.serverManager, 'reloadServer')
     serverManagerReloadStub.returns(Promise.resolve())
 
-    return this.serverManager.reloadAllServers()
-      .then(() => {
-        assert.ok(loggerInfoStub.calledOnce)
-        assert.ok(!serverManagerReloadStub.calledOnce)
-      })
+    await this.serverManager.reloadAllServers()
+    assert.ok(loggerInfoStub.calledOnce)
+    assert.ok(!serverManagerReloadStub.calledOnce)
   })
 
   it('.reloadServer() should restart one worker', function () {

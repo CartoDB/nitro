@@ -51,15 +51,13 @@ describe('leader', function () {
     this.sandbox.restore()
   })
 
-  it('.run() should create as many workers as CPUs there are in the machine', function () {
+  it('.run() should create as many workers as CPUs there are in the machine', async function () {
     this.logger.info = this.sandbox.spy()
-    var serverManagerForkStub = this.sandbox.stub(this.serverManager, 'fork').returns(undefined)
+    const serverManagerForkStub = this.sandbox.stub(this.serverManager, 'fork').returns(undefined)
 
-    return this.leader.run()
-      .then(() => {
-        assert.ok(this.logger.info.calledOnce)
-        assert.equal(serverManagerForkStub.callCount, os.cpus().length)
-      })
+    await this.leader.run()
+    assert.ok(this.logger.info.calledOnce)
+    assert.equal(serverManagerForkStub.callCount, os.cpus().length)
   })
 
   it('.exit() should exit successfully', function () {

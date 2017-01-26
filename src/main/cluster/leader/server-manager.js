@@ -10,16 +10,22 @@ export default class ServerManager {
   }
 
   attachListeners () {
-    this.sigusr2Listener.listen(() => {
-      this.reloadAllServers()
-        .then(() => this.logger.info('All servers were loaded'))
-        .catch(err => this.logger.error({ err }))
+    this.sigusr2Listener.listen(async () => {
+      try {
+        await this.reloadAllServers()
+        this.logger.info('All servers were loaded')
+      } catch (err) {
+        this.logger.error({ err })
+      }
     })
 
-    this.sighupListener.listen(() => {
-      this.reopenAllLogFileStreams()
-        .then(() => this.logger.info('All log files were reopened'))
-        .catch(err => this.logger.error({ err }))
+    this.sighupListener.listen(async () => {
+      try {
+        await this.reopenAllLogFileStreams()
+        this.logger.info('All log files were reopened')
+      } catch (err) {
+        this.logger.error({ err })
+      }
     })
 
     this.serverExitListener.listen((server, code) => this.refork(server, code))

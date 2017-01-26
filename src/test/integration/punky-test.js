@@ -7,14 +7,18 @@ describe('nitro', function () {
     this.nitro = new Nitro()
   })
 
-  it('.run() should init the service', function () {
-    return this.nitro.run()
-      .then(() => this.nitro.close())
+  it('.run() should init the service', async function () {
+    assert.doesNotThrow(async () => {
+      await this.nitro.run()
+      await this.nitro.close()
+    })
   })
 
   it('.close() should close the service', function () {
-    return this.nitro.run()
-      .then(() => this.nitro.close())
+    assert.doesNotThrow(async () => {
+      await this.nitro.run()
+      await this.nitro.close()
+    })
   })
 
   it(`.role should return ${Role.SERVER}`, function () {

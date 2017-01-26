@@ -26,30 +26,27 @@ describe('launcher', function () {
     assert.ok(this.launcher instanceof RunnerInterface)
   })
 
-  it('.run() should launch worker successfully', function () {
-    var targetRunStub = this.sandbox.stub(this.runner, 'run').returns(Promise.resolve())
+  it('.run() should launch worker successfully', async function () {
+    const targetRunStub = this.sandbox.stub(this.runner, 'run').returns(Promise.resolve())
 
-    return this.launcher.run()
-      .then(() => {
-        assert.ok(targetRunStub.calledOnce)
-      })
+    await this.launcher.run()
+
+    assert.ok(targetRunStub.calledOnce)
   })
 
-  it('.exit() should exit worker successfully', function () {
-    var targetExitStub = this.sandbox.stub(this.runner, 'exit').returns(Promise.resolve())
+  it('.exit() should exit worker successfully', async function () {
+    const targetExitStub = this.sandbox.stub(this.runner, 'exit').returns(Promise.resolve())
 
-    return this.launcher.exit()
-      .then(() => {
-        assert.ok(targetExitStub.calledWithExactly)
-      })
+    await this.launcher.exit()
+
+    assert.ok(targetExitStub.calledWithExactly)
   })
 
-  it('.exit(1) should exit worker with error', function () {
-    var targetExitStub = this.sandbox.stub(this.runner, 'exit').returns(Promise.resolve())
+  it('.exit(1) should exit worker with error', async function () {
+    const targetExitStub = this.sandbox.stub(this.runner, 'exit').returns(Promise.resolve())
 
-    return this.launcher.exit(1)
-      .then(() => {
-        assert.ok(targetExitStub.calledWithExactly(1))
-      })
+    await this.launcher.exit(1)
+
+    assert.ok(targetExitStub.calledWithExactly(1))
   })
 })
