@@ -37,6 +37,7 @@
   "scripts": {
     "benchmark": "node lib/benchmark",
     "build": "babel src -d lib --source-maps inline",
+    "build:watch": "npm run build -- --watch",
     "coverage": "istanbul cover _mocha lib/test/ -- --recursive -r lib/test/setup",
     "example": "node lib/example",
     "lint": "standard \"src/**/*.js\"",
@@ -47,8 +48,7 @@
     "preversion": "npm test",
     "test": "mocha --recursive -r source-map-support/register -r lib/test/setup lib/test/",
     "test:watch": "npm run test -- -w",
-    "version": "npm run benchmark -- -r && git add -A benchmark",
-    "watch": "babel src -d lib --source-maps inline --watch"
+    "version": "npm run benchmark -- -r && git add -A benchmark"
   },
   "devDependencies": {
     "babel-cli": "6.22.2",
