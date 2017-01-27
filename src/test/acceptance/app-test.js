@@ -26,4 +26,17 @@ describe('end-to-end app examples', function () {
 
     assert.equal(body, 'Hello World')
   })
+
+  it('GET / should response 200 ok', async function () {
+    const res = await fetch(`http://localhost:${this.port}/`, {
+      headers: { 'x-request-id': 'wadus' }
+    })
+    const body = await res.text()
+
+    assert.ok(res.ok)
+    assert.equal(res.status, 200)
+    assert.equal(res.headers.get('x-request-id'), 'wadus')
+
+    assert.equal(body, 'Hello World')
+  })
 })
