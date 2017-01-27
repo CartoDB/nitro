@@ -24,4 +24,8 @@ export default class HelloWorld {
   run () {
     return this.nitro.run()
   }
+
+  close () {
+    return this.nitro.close()
+  }
 }
