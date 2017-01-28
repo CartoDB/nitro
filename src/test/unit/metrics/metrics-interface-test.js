@@ -26,4 +26,8 @@ describe('metrics-interface', function () {
   it('.gaugeMemory() should throw "Unimplemented method" error', function () {
     assert.throws(() => this.metrics.gaugeMemory(), 'Unimplemented method')
   })
+
+  it('.increment() should throw "Unimplemented method" error', function () {
+    assert.throws(() => this.metrics.increment(), 'Unimplemented method')
+  })
 })

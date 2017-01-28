@@ -23,4 +23,8 @@ describe('logger', function () {
   it('.gaugeMemory() should  do nothing', function () {
     assert.doesNotThrow(() => this.metrics.gaugeMemory())
   })
+
+  it('.increment() should  do nothing', function () {
+    assert.doesNotThrow(() => this.metrics.increment())
+  })
 })

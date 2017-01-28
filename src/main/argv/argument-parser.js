@@ -27,7 +27,7 @@ export default class ArgumentParser extends ParserInterface {
       default: {
         name: pkg.name,
         cluster: false,
-        metrics: true,
+        metrics: false,
         logger: true,
         port: 3000,
         logPath: path.join(process.cwd(), pkg.name + '.log'),

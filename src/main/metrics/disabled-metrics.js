@@ -16,4 +16,6 @@ export default class DisabledMetrics extends MetricsInterface {
   logOnError () {}
 
   gaugeMemory () {}
+
+  increment () {}
 }

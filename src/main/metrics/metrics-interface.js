@@ -22,4 +22,8 @@ export default class MetricsInterface {
   gaugeMemory () {
     throw new Error(ErrorMessage.unimplementedMethod())
   }
+
+  increment () {
+    throw new Error(ErrorMessage.unimplementedMethod())
+  }
 }
