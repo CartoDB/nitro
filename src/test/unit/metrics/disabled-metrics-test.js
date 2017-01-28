@@ -1,5 +1,3 @@
-'use strict'
-
 import assert from 'assert'
 import DisabledMetrics from '../../../main/metrics/disabled-metrics'
 
