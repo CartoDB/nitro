@@ -1,7 +1,7 @@
 {
   "name": "nitro",
   "version": "0.0.0",
-  "description": "PoC - Bootstrap your APIs taking advantage of the best community modules",
+  "description": "Built-in support for clustering, logging, caching, authentication and other essential facilities for building CARTO APIs",
   "main": "index.js",
   "repository": {
     "type": "git",
