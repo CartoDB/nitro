@@ -58,7 +58,7 @@ Nitro exposes two ways to be configured:
 **Important**: command-line configuration overrides programatic options. If your app looks like below:
 
 ```
-cosnt options = {
+const options = {
   cluster: {
     enabled: false
   }
