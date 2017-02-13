@@ -6,18 +6,20 @@ Built-in support for clustering, logging, caching, authentication and other esse
 
 ```js
 import Nitro from 'nitro'
-import Map from 'maps'
+import Maps from 'maps'
 
 const nitro = new Nitro()
 
 nitro.app.use(async ctx => {
-  ctx.log.info({ req: ctx.req })
-
   const start = new Date()
-  const map = await Map.get(ctx.query.layergroupid)
+  const { layergroupid, x, y, z } = ctx.query
+
+  ctx.log.info(`looking for tile ${z}/${x}/${y}`)
+
+  const map = await Maps.get(layergroupid)
 
   ctx.set('content-type', 'image/png')
-  ctx.body = await map.tile(ctx.query.coords)
+  ctx.body = await map.tile(x, y, z)
 
   ctx.metrics.timing(new Date() - start)
 })
@@ -28,6 +30,7 @@ nitro.run()
 ## Features
 
 - Reduce boilerplate code in CARTO APIs
+- Accelerates web application development
 - Common command-line interface
 - Cluster support behind the scenes
 - Log requests & responses in JSON format
@@ -45,19 +48,19 @@ nitro.run()
 
 Use `-S` or `--save` to include it as dependency in `package.json`
 
-```
+```bash
 $ npm install nitro -S
 ```
 
 ## Configuration
 
-Nitro exposes two ways to be configured:
+There are two ways to configure `nitro`:
  - By command-line options: `node app.js --port 8000`
  - And programmatically: `const nitro = new Nitro({ port: 8000})`
 
-**Important**: command-line configuration overrides programatic options. If your app looks like below:
+**Important**: command-line configuration overrides programatic options. See the following configuration:
 
-```
+```js
 const options = {
   cluster: {
     enabled: false
@@ -70,11 +73,11 @@ const nitro = new Nitro(options)
 
 then run:
 
-```
+```bash
 node app.js --cluster
 ```
 
-your app will run in cluster mode.
+your app will run in **cluster mode**.
 
 ## Options
 
@@ -119,17 +122,90 @@ $ node app.js --help
 
 ## Application
 
+Nitro provides a `koa` application and binds some common middlewares:
+ - Identify each request with a unique id and sets a `X-Request-ID` if not provided, otherwise use `X-Request-ID` value as request identifier
+ - Handle error responses when something goes wrong
+ - Create a sub-logger and binds it to the context
+ - Log incoming request, outgoing responses and errors
+ - Provide a metrics client to the context to collect useful info about performance & usage
+
 ## Logging
+
+Nitro builds a `bunyan` logger and binds a new sub-logger identified by `X-Request-ID` for each request. You can use logger in two ways:
+ - At service level through `nitro.logger`
+ - At request context level through `ctx.log`
+
+Example:
+
+```js
+const { app, logger, run } = new Nitro()
+
+// Service level
+logger.info('Initializing app')
+// -> {"name":"log-example","role":"server","hostname":"localhost","pid":12018,"level":20,"msg":"Initializing app","time":"2017-02-13T13:47:32.521Z","v":0}
+
+app.use(async (ctx, next) => {
+  // request context
+  ctx.log.info({ req: ctx.req }, 'Request received')
+  // -> {"name":"log-example","role":"server","hostname":"localhost","pid":12018,"requestId":"1450056d-2586-40af-b9c4-63ed70c87bfe","level":30,"res":{"statusCode":200},"msg":"Request received","time":"2017-02-13T13:48:57.477Z","v":0}
+  await next()
+})
+
+run()
+```
 
 ## Metrics
 
+Nitro creates a `statsD` client to collect stats about usage & performance. You can access it in two ways:
+- At service level through `nitro.metrics`
+- At request context level through `ctx.metrics`
+
+Example:
+
+```js
+const { app, metrics, run } = new Nitro()
+
+metrics.gaugeMemory() // gauge memory usage every 5 seconds
+
+app.use(async (ctx, next) => {
+  const start = new Date()
+  await next()
+  ctx.metrics.timing(new Date() - start)
+})
+
+run()
+```
+
+Nitro sends statistics about memory and CPU usage every 5 seconds, you can define this interval by configuration:
+
+```js
+const options = {
+  metrics: {
+    enabled: true,
+    interval: 10000
+  }
+}
+const nitro = new Nitro(options)
+```
+
+## Cluster
+
+
 ## Cache
+
+TBD
 
 ## Authentication
 
+TBD
+
 ## User limits
 
+TBD
+
 ## Health-checks
+
+TBD
 
 ## Requirements
 
