@@ -32,12 +32,24 @@ export default class Nitro {
     return this[metrics].provider
   }
 
+  get start () {
+    return this[launcher].run.bind(this[launcher])
+  }
+
   run () {
     return this[launcher].run()
   }
 
+  get stop () {
+    return this[launcher].close.bind(this[launcher])
+  }
+
   close () {
     return this[launcher].close()
+  }
+
+  get kill () {
+    return this[launcher].exit.bind(this[launcher])
   }
 
   exit () {
