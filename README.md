@@ -8,9 +8,9 @@ Built-in support for clustering, logging, caching, authentication and other esse
 import Nitro from 'nitro'
 import Maps from 'maps'
 
-const nitro = new Nitro()
+const { app, start } = new Nitro()
 
-nitro.app.use(async ctx => {
+app.use(async ctx => {
   const start = new Date()
   const { layergroupid, x, y, z } = ctx.query
 
@@ -24,12 +24,12 @@ nitro.app.use(async ctx => {
   ctx.metrics.timing(new Date() - start)
 })
 
-nitro.run()
+start()
 ```
 
 ## Features
 
-- Reduce boilerplate code in CARTO APIs
+- Reduce boilerplate code
 - Accelerates web application development
 - Common command-line interface
 - Cluster support behind the scenes
@@ -112,7 +112,7 @@ $ node app.js --help
     -c, --cluster   Enable cluster mode (default: disable)
     -p, --port      Specific listening port (default: 3000)
     -l, --log-path  Path to log (default: current working directory)
-    -o, --console   Include stdout as log output (true if NODE_ENV is undefined or 'development', otherwise false)
+    -o, --console   Include stdout as log output (true if NODE_ENV is 'undefined' or 'development', otherwise false)
     --no-logger     Disable logger
     --no-metrics    Disable metrics
 
@@ -138,20 +138,19 @@ Nitro builds a `bunyan` logger and binds a new sub-logger identified by `X-Reque
 Example:
 
 ```js
-const { app, logger, run } = new Nitro()
+const { app, logger, start } = new Nitro()
 
 // Service level
 logger.info('Initializing app')
 // -> {"name":"log-example","role":"server","hostname":"localhost","pid":12018,"level":20,"msg":"Initializing app","time":"2017-02-13T13:47:32.521Z","v":0}
 
-app.use(async (ctx, next) => {
+app.use(ctx => {
   // request context
   ctx.log.info({ req: ctx.req }, 'Request received')
   // -> {"name":"log-example","role":"server","hostname":"localhost","pid":12018,"requestId":"1450056d-2586-40af-b9c4-63ed70c87bfe","level":30,"res":{"statusCode":200},"msg":"Request received","time":"2017-02-13T13:48:57.477Z","v":0}
-  await next()
 })
 
-run()
+start()
 ```
 
 ## Metrics
@@ -163,7 +162,7 @@ Nitro creates a `statsD` client to collect stats about usage & performance. You 
 Example:
 
 ```js
-const { app, metrics, run } = new Nitro()
+const { app, metrics, start } = new Nitro()
 
 metrics.gaugeMemory() // gauge memory usage every 5 seconds
 
@@ -173,7 +172,7 @@ app.use(async (ctx, next) => {
   ctx.metrics.timing(new Date() - start)
 })
 
-run()
+start()
 ```
 
 Nitro sends statistics about memory and CPU usage every 5 seconds, you can define this interval by configuration:
