@@ -36,6 +36,8 @@ describe('nitro OOP API', function () {
     assert.doesNotThrow(() => this.nitro.metrics.timing())
     assert.doesNotThrow(() => this.nitro.metrics.gauge())
     assert.doesNotThrow(() => this.nitro.metrics.increment())
+    assert.doesNotThrow(() => this.nitro.metrics.logOnError())
+    assert.doesNotThrow(() => this.nitro.metrics.gaugeMemory())
   })
 })
 
@@ -79,5 +81,7 @@ describe('nitro FP API', function () {
     assert.doesNotThrow(() => this.metrics.timing())
     assert.doesNotThrow(() => this.metrics.gauge())
     assert.doesNotThrow(() => this.metrics.increment())
+    assert.doesNotThrow(() => this.metrics.logOnError())
+    assert.doesNotThrow(() => this.metrics.gaugeMemory())
   })
 })
