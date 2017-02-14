@@ -1,8 +1,8 @@
 import assert from 'assert'
-import Nitro from '../../main/nitro'
 import Role from '../../main/cluster/role'
+import Nitro from '../../main/nitro'
 
-describe('nitro', function () {
+describe('nitro OOP API', function () {
   beforeEach(function () {
     this.nitro = new Nitro()
   })
@@ -36,5 +36,48 @@ describe('nitro', function () {
     assert.doesNotThrow(() => this.nitro.metrics.timing())
     assert.doesNotThrow(() => this.nitro.metrics.gauge())
     assert.doesNotThrow(() => this.nitro.metrics.increment())
+  })
+})
+
+describe('nitro FP API', function () {
+  beforeEach(function () {
+    const { app, role, logger, metrics, start, stop } = new Nitro()
+    this.app = app
+    this.role = role
+    this.logger = logger
+    this.metrics = metrics
+    this.start = start
+    this.stop = stop
+  })
+
+  it('.run() should init the service', async function () {
+    assert.doesNotThrow(async () => {
+      await this.start()
+      await this.stop()
+    })
+  })
+
+  it('.close() should close the service', function () {
+    assert.doesNotThrow(async () => {
+      await this.start()
+      await this.stop()
+    })
+  })
+
+  it(`.role should return ${Role.SERVER}`, function () {
+    assert.equal(this.role, Role.SERVER)
+  })
+
+  it('.logger should return a logger provider', function () {
+    assert.doesNotThrow(() => this.logger.debug())
+    assert.doesNotThrow(() => this.logger.info())
+    assert.doesNotThrow(() => this.logger.warn())
+    assert.doesNotThrow(() => this.logger.error())
+  })
+
+  it('.metrics should return a metrics instance', function () {
+    assert.doesNotThrow(() => this.metrics.timing())
+    assert.doesNotThrow(() => this.metrics.gauge())
+    assert.doesNotThrow(() => this.metrics.increment())
   })
 })
