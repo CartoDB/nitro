@@ -1,8 +1,8 @@
 import { isMaster } from 'cluster'
 import ErrorMessage from '../utils/error-message'
 
-export const LEADER = 'leader'
-export const SERVER = 'server'
+export const LEADER = Symbol('leader')
+export const SERVER = Symbol('server')
 
 export default class Role {
   constructor () {

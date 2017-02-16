@@ -3,6 +3,8 @@ import LoggerFactory from './logger/logger-factory'
 import LauncherFactory from './launcher/launcher-factory'
 import defaults from './config/defaults'
 
+export { LEADER, SERVER } from './cluster/role'
+
 const launcher = Symbol('launcher')
 const logger = Symbol('logger')
 const metrics = Symbol('metrics')
