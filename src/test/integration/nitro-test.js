@@ -1,6 +1,6 @@
 import assert from 'assert'
 import Role from '../../main/cluster/role'
-import Nitro from '../../main/nitro'
+import Nitro from '../../'
 
 describe('nitro OOP API', function () {
   beforeEach(function () {
