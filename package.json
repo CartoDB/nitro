@@ -2,7 +2,7 @@
   "name": "nitro",
   "version": "0.0.0",
   "description": "Built-in support for clustering, logging, caching, authentication and other essential facilities for building CARTO APIs",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CartoDB/nitro.git"
@@ -49,9 +49,9 @@
     "version": "npm run benchmark -- -r && git add -A benchmark"
   },
   "devDependencies": {
-    "babel-cli": "6.22.2",
+    "babel-cli": "6.23.0",
     "babel-plugin-transform-async-to-generator": "6.22.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.22.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.23.0",
     "istanbul": "0.4.5",
     "mocha": "3.2.0",
     "node-fetch": "1.6.3",
