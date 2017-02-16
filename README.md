@@ -189,6 +189,36 @@ const nitro = new Nitro(options)
 
 ## Cluster
 
+Nitro supports clustering, you can activate cluster mode:
+ - using `--cluster` option: `node app.js --cluster`
+ - setting enable to `true` in options to constructor: `{ cluster: { enabled: true } }`
+
+Example:
+
+```js
+import Nitro from 'nitro'
+import Maps from 'maps'
+
+const { app, role, start } = new Nitro({
+  cluster: {
+    enabled: true
+  }
+})
+
+if (role === Nitro.SERVER) {
+  app.use(async (ctx, next) => {
+    // code ...
+    await next()
+    // more code ..
+  })
+}
+
+start()
+```
+
+No need to create `workers`, refork or kill them in `master` process. Nitro takes care of this for you. You should configure the `app` only if process' role is `Nitro.SERVER`, otherwise you don't have to do anything. There are two different roles:
+ - `Nitro.SERVER`: in charge of response incoming request
+ - `Nitro.LEADER`: creates a cluster of `servers` and keeps communication among them
 
 ## Cache
 
