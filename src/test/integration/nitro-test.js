@@ -1,5 +1,4 @@
 import assert from 'assert'
-import Role from '../../main/cluster/role'
 import Nitro from '../../'
 
 describe('nitro OOP API', function () {
@@ -21,8 +20,8 @@ describe('nitro OOP API', function () {
     })
   })
 
-  it(`.role should return ${Role.SERVER}`, function () {
-    assert.equal(this.nitro.role, Role.SERVER)
+  it(`.role should return ${Nitro.SERVER}`, function () {
+    assert.equal(this.nitro.role, Nitro.SERVER)
   })
 
   it('.logger should return a logger provider', function () {
@@ -66,8 +65,8 @@ describe('nitro FP API', function () {
     })
   })
 
-  it(`.role should return ${Role.SERVER}`, function () {
-    assert.equal(this.role, Role.SERVER)
+  it(`.role should return ${Nitro.SERVER}`, function () {
+    assert.equal(this.role, Nitro.SERVER)
   })
 
   it('.logger should return a logger provider', function () {
