@@ -5,56 +5,52 @@ import defaults from './config/defaults'
 
 export { LEADER, SERVER } from './cluster/role'
 
-const launcher = Symbol('launcher')
-const logger = Symbol('logger')
-const metrics = Symbol('metrics')
-
 export default class Nitro {
   constructor (clientOptions = {}) {
     const options = Object.assign({}, defaults, clientOptions)
 
-    this[logger] = LoggerFactory.create(options)
-    this[metrics] = MetricsFactory.create(this[logger], options)
-    this[launcher] = LauncherFactory.create(this[metrics], this[logger], options)
+    this._logger = LoggerFactory.create(options)
+    this._metrics = MetricsFactory.create(this._logger, options)
+    this._launcher = LauncherFactory.create(this._metrics, this._logger, options)
   }
 
   get role () {
-    return this[launcher].role
+    return this._launcher.role
   }
 
   get app () {
-    return this[launcher].app.provider
+    return this._launcher.app.provider
   }
 
   get logger () {
-    return this[logger].provider
+    return this._logger.provider
   }
 
   get metrics () {
-    return this[metrics].provider
+    return this._metrics.provider
   }
 
   get start () {
-    return this[launcher].run.bind(this[launcher])
+    return this._launcher.run.bind(this._launcher)
   }
 
   run () {
-    return this[launcher].run()
+    return this._launcher.run()
   }
 
   get stop () {
-    return this[launcher].close.bind(this[launcher])
+    return this._launcher.close.bind(this._launcher)
   }
 
   close () {
-    return this[launcher].close()
+    return this._launcher.close()
   }
 
   get kill () {
-    return this[launcher].exit.bind(this[launcher])
+    return this._launcher.exit.bind(this._launcher)
   }
 
   exit () {
-    return this[launcher].exit()
+    return this._launcher.exit()
   }
 }
