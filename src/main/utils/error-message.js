@@ -1,4 +1,10 @@
 export default class ErrorMessage {
+  constructor () {
+    if (new.target === ErrorMessage) {
+      throw new Error(ErrorMessage.cannotConstructed(ErrorMessage.name))
+    }
+  }
+
   static unimplementedMethod () {
     return `Unimplemented method`
   }
