@@ -5,12 +5,12 @@ export default class HelloWorld {
     this.nitro = new Nitro(options)
 
     if (this.nitro.app) {
-      const body = new Buffer('Hello World')
+      const body = new Buffer('Hello World\n')
       const message = body.toString('utf8')
 
       this.nitro.app.use(ctx => {
         ctx.log.info(message)
-        ctx.metrics.increment('hello_world\n')
+        ctx.metrics.increment('hello_world')
         ctx.set('content-type', 'text/html')
         ctx.body = body
       })
