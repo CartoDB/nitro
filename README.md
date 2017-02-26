@@ -122,7 +122,7 @@ $ node app.js --help
 
 ## Application
 
-Nitro provides a `koa` application and binds some common middlewares:
+Nitro provides a `koa` application and is bundled with common middlewares:
  - Identify each request with a unique id and sets a `X-Request-ID` if not provided, otherwise use `X-Request-ID` value as request identifier
  - Handle error responses when something goes wrong
  - Create a sub-logger and binds it to the context
