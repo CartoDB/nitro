@@ -238,5 +238,5 @@ TBD
 
 ## Requirements
 
-- node >= v6.x
-- npm  >= v3.x
+- node >= v7.6.0
+- npm  >= v4.1.2
