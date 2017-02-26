@@ -10,7 +10,7 @@ export default class HelloWorld {
 
       this.nitro.app.use(ctx => {
         ctx.log.info(message)
-        ctx.metrics.increment('hello_world')
+        ctx.metrics.increment('hello_world\n')
         ctx.set('content-type', 'text/html')
         ctx.body = body
       })
