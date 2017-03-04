@@ -122,16 +122,16 @@ $ node app.js --help
 
 ## Application
 
-Nitro provides a `koa` application and is bundled with common middlewares:
- - Identify each request with a unique id and sets a `X-Request-ID` if not provided, otherwise use `X-Request-ID` value as request identifier
+Nitro provides a `koa` application and bundles handy middlewares for common tasks:
+ - Identify each request with a unique id and sets a `X-Request-ID` header, if `X-Request-ID` is already provided then Nitro uses its value as request identifier
  - Handle error responses when something goes wrong
- - Create a sub-logger and binds it to the context
+ - Create a sub-logger providing a handy accessor in request context
  - Log incoming request, outgoing responses and errors
- - Provide a metrics client to the context to collect useful info about performance & usage
+ - Provide a client of metrics to collect info about performance and usage
 
 ## Logging
 
-Nitro builds a `bunyan` logger and binds a new sub-logger identified by `X-Request-ID` for each request. You can use logger in two ways:
+Nitro builds a `bunyan`'s logger and binds a new sub-logger for each request identified by `X-Request-ID` header. You can use logger in two ways:
  - At service level through `nitro.logger`
  - At request context level through `ctx.log`
 
@@ -155,7 +155,7 @@ start()
 
 ## Metrics
 
-Nitro creates a `statsD` client to collect stats about usage & performance. You can access it in two ways:
+Nitro creates a `statsD` client to collect stats about usage and performance. You can access it in two ways:
 - At service level through `nitro.metrics`
 - At request context level through `ctx.metrics`
 
@@ -164,7 +164,7 @@ Example:
 ```js
 const { app, metrics, start } = new Nitro()
 
-metrics.gaugeMemory() // gauge memory usage every 5 seconds
+metrics.gaugeMemory() // each 5 seconds
 
 app.use(async (ctx, next) => {
   const start = new Date()
@@ -206,10 +206,8 @@ const { app, role, start } = new Nitro({
 })
 
 if (role === Nitro.SERVER) {
-  app.use(async (ctx, next) => {
+  app.use(ctx => {
     // code ...
-    await next()
-    // more code ..
   })
 }
 
