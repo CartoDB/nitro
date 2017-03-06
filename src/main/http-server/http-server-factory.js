@@ -8,6 +8,7 @@ import LogMiddleware from './app/middleware/log-middleware'
 import MetricsMiddleware from './app/middleware/metrics-middleware'
 import LogRequestMiddleware from './app/middleware/log-request-middleware'
 import LogResponseMiddleware from './app/middleware/log-response-middleware'
+import ResponseTimeMiddleware from './app/middleware/response-time-middleware'
 import HttpServer from './http-server'
 
 export default class HttpServerFactory extends FactoryInterface {
@@ -16,11 +17,12 @@ export default class HttpServerFactory extends FactoryInterface {
     const koa = new Koa()
 
     const middlewares = new AppMiddlewares()
-      .add(new ErrorMiddleware(logger))
       .add(new RequestIdMiddleware())
       .add(new LogMiddleware(logger))
+      .add(new ErrorMiddleware())
       .add(new MetricsMiddleware(metrics))
       .add(new LogRequestMiddleware())
+      .add(new ResponseTimeMiddleware())
       .add(new LogResponseMiddleware())
 
     const app = new App(koa, middlewares)
