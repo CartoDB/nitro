@@ -12,11 +12,11 @@ const { app, start } = new Nitro()
 
 app.use(async ctx => {
   const start = new Date()
-  const { layergroupid, x, y, z } = ctx.query
+  const { mapId, x, y, z } = ctx.query
 
   ctx.log.info(`looking for tile ${z}/${x}/${y}`)
 
-  const map = await Maps.get(layergroupid)
+  const map = await Maps.get(mapId)
 
   ctx.set('content-type', 'image/png')
   ctx.body = await map.tile(x, y, z)
