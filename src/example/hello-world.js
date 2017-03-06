@@ -12,7 +12,6 @@ export default class HelloWorld extends Example {
       this.nitro.app.use(ctx => {
         ctx.log.info(message)
         ctx.metrics.increment('hello_world')
-        ctx.set('content-type', 'text/html')
         ctx.body = body
       })
     }
