@@ -1,13 +1,11 @@
 import HelloWorld from './hello-world'
 
-export default class ClusteredHelloWorld {
+export default class ClusteredHelloWorld extends HelloWorld {
   constructor () {
-    const options = {
+    super({
       cluster: {
         enabled: true
       }
-    }
-
-    return new HelloWorld(options)
+    })
   }
 }

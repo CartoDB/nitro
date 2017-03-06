@@ -1,10 +1,14 @@
 import meow from 'meow'
 import HelloWorld from './hello-world'
 import ClusteredHelloWorld from './clustered-hello-world'
+import Forbidden from './forbidden'
 
 const examples = new Map()
-examples.set('hello-world', HelloWorld)
-examples.set('clustered-hello-world', ClusteredHelloWorld)
+
+examples
+  .set('hello-world', HelloWorld)
+  .set('clustered-hello-world', ClusteredHelloWorld)
+  .set('forbidden', Forbidden)
 
 const help = `
   Usage:
@@ -26,9 +30,7 @@ const options = {
 }
 
 const flags = meow({ help }, options).flags
-const exampleName = flags.name
-const Example = examples.get(exampleName)
+const Example = examples.get(flags.name)
 const example = new Example()
 
-example.run()
-  .catch(err => example.nitro.logger.error(err))
+example.start()

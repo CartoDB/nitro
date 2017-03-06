@@ -1,8 +1,9 @@
 import Nitro from '../'
+import Example from './example'
 
-export default class HelloWorld {
+export default class HelloWorld extends Example {
   constructor (options) {
-    this.nitro = new Nitro(options)
+    super(options)
 
     if (this.nitro.role === Nitro.SERVER) {
       const body = new Buffer('Hello World\n')
@@ -15,13 +16,5 @@ export default class HelloWorld {
         ctx.body = body
       })
     }
-  }
-
-  start () {
-    return this.nitro.start()
-  }
-
-  stop () {
-    return this.nitro.stop()
   }
 }
