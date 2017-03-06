@@ -34,23 +34,11 @@ export default class Nitro {
     return this._launcher.run.bind(this._launcher)
   }
 
-  run () {
-    return this._launcher.run()
-  }
-
   get stop () {
     return this._launcher.close.bind(this._launcher)
   }
 
-  close () {
-    return this._launcher.close()
-  }
-
-  get kill () {
+  get exit () {
     return this._launcher.exit.bind(this._launcher)
-  }
-
-  exit () {
-    return this._launcher.exit()
   }
 }

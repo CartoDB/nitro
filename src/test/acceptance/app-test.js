@@ -6,16 +6,16 @@ const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-
 
 describe('end-to-end app examples', function () {
   before(function () {
-    this.app = new HelloWorld({ port: 0 })
+    this.sut = new HelloWorld({ port: 0 })
   })
 
   beforeEach(async function () {
-    const httpServer = await this.app.run()
+    const httpServer = await this.sut.start()
     this.port = httpServer.address().port
   })
 
   afterEach(function () {
-    this.app.close()
+    this.sut.stop()
   })
 
   it('GET / should response 200 ok', async function () {
@@ -26,7 +26,7 @@ describe('end-to-end app examples', function () {
     assert.equal(res.status, 200)
     assert.equal(res.headers.get('content-type'), 'text/html')
 
-    assert.equal(body, 'Hello World')
+    assert.equal(body, 'Hello World\n')
   })
 
   it('GET / should response with the given x-request-id header', async function () {

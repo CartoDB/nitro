@@ -4,7 +4,7 @@ export default class HelloWorld {
   constructor (options) {
     this.nitro = new Nitro(options)
 
-    if (this.nitro.app) {
+    if (this.nitro.role === Nitro.SERVER) {
       const body = new Buffer('Hello World\n')
       const message = body.toString('utf8')
 
@@ -17,11 +17,11 @@ export default class HelloWorld {
     }
   }
 
-  run () {
-    return this.nitro.run()
+  start () {
+    return this.nitro.start()
   }
 
-  close () {
-    return this.nitro.close()
+  stop () {
+    return this.nitro.stop()
   }
 }

@@ -6,17 +6,17 @@ describe('nitro OOP API', function () {
     this.nitro = new Nitro()
   })
 
-  it('.run() should init the service', async function () {
+  it('.start() should init the service', async function () {
     assert.doesNotThrow(async () => {
-      await this.nitro.run()
-      await this.nitro.close()
+      await this.nitro.start()
+      await this.nitro.stop()
     })
   })
 
-  it('.close() should close the service', function () {
+  it('.stop() should close the service', function () {
     assert.doesNotThrow(async () => {
-      await this.nitro.run()
-      await this.nitro.close()
+      await this.nitro.start()
+      await this.nitro.stop()
     })
   })
 
