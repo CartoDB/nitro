@@ -8,7 +8,7 @@ export default class LogMiddleware extends MiddlewareInterface {
 
   regist (app) {
     app.use(async (ctx, next) => {
-      const requestId = ctx.response.get('x-request-id')
+      const requestId = ctx.get('x-request-id')
       ctx.log = this.logger.child(requestId)
       await next()
     })
