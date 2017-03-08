@@ -8,4 +8,8 @@ export default class MiddlewareInterface {
   regist () {
     throw new Error('Unimplemented method')
   }
+
+  middleware () {
+    throw new Error('Unimplemented method')
+  }
 }
