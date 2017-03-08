@@ -9,9 +9,9 @@ export default class LogMiddleware extends MiddlewareInterface {
   regist (app) {
     app.use(async (ctx, next) => {
       ctx.log = this.logger.child(ctx.state.requestId)
-      ctx.log.info({ req: ctx.req })
+      ctx.log.info({ req: ctx.request })
       await next()
-      ctx.log.info({ res: ctx.res })
+      ctx.log.info({ res: ctx.response })
     })
   }
 }

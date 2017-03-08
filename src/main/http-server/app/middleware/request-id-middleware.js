@@ -5,8 +5,8 @@ export default class RequestIdMiddleware extends MiddlewareInterface {
   regist (app) {
     app.use(async (ctx, next) => {
       ctx.state.requestId = ctx.get('x-request-id') || uuid.v4()
-      await next()
       ctx.set('x-request-id', ctx.state.requestId)
+      await next()
     })
   }
 }
