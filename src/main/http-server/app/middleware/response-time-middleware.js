@@ -7,7 +7,7 @@ export default class ResponseTimeMiddleware extends MiddlewareInterface {
       await next()
       const elapsed = new Date() - start
 
-      ctx.set('x-response-time', elapsed)
+      ctx.set('X-Response-Time', elapsed)
     })
   }
 }
