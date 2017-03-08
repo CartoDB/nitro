@@ -9,6 +9,7 @@ export default class Metrics extends MetricsInterface {
 
     this.logOnError()
     this.gaugeMemory()
+    this.gaugeCPU()
   }
 
   logOnError () {
@@ -21,6 +22,19 @@ export default class Metrics extends MetricsInterface {
     this.memoryInterval = setInterval(() => {
       const memoryUsage = process.memoryUsage()
       Object.keys(memoryUsage).forEach(property => this.gauge('memory.' + property, memoryUsage[property]))
+    }, this.interval)
+  }
+
+  gaugeCPU () {
+    this.logger.debug('Gauge CPU activated')
+    let previousCPUUsage = process.cpuUsage()
+    this.cpuInterval = setInterval(() => {
+      const CPUUsage = process.cpuUsage(previousCPUUsage)
+      Object.keys(CPUUsage).forEach(property => {
+        this.logger.info('cpu.' + property + ':' + CPUUsage[property])
+        this.gauge('cpu.' + property, CPUUsage[property])
+      })
+      previousCPUUsage = CPUUsage
     }, this.interval)
   }
 
