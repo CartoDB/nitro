@@ -14,7 +14,7 @@ export default class MetricsFactory extends FactoryInterface {
     const port = options.metrics.port
     const interval = options.metrics.interval
     const name = options.name
-    const role = Role.get(options.cluster.enabled)
+    const role = Role.getName(options.cluster.enabled)
     const prefix = [ name, role ].join('.')
     const statsd = new StatsD(host, port, prefix)
 

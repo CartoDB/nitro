@@ -13,29 +13,33 @@ export default class Metrics extends MetricsInterface {
   }
 
   logOnError () {
-    this.logger.debug('Log on error sending stats activated')
     this.provider.socket.on('error', err => this.logger.error('Error sending stats:', err))
+
+    this.logger.debug('Log on error sending stats activated')
   }
 
   gaugeMemory () {
-    this.logger.debug('Gauge memory activated')
     this.memoryInterval = setInterval(() => {
       const memoryUsage = process.memoryUsage()
-      Object.keys(memoryUsage).forEach(property => this.gauge('memory.' + property, memoryUsage[property]))
+
+      Object.keys(memoryUsage).forEach(property => this.gauge(`memory.${property}`, memoryUsage[property]))
     }, this.interval)
+
+    this.logger.debug('Gauge memory activated every %s seconds', this.interval / 1000)
   }
 
   gaugeCPU () {
-    this.logger.debug('Gauge CPU activated')
     let previousCPUUsage = process.cpuUsage()
+
     this.cpuInterval = setInterval(() => {
       const CPUUsage = process.cpuUsage(previousCPUUsage)
-      Object.keys(CPUUsage).forEach(property => {
-        this.logger.info('cpu.' + property + ':' + CPUUsage[property])
-        this.gauge('cpu.' + property, CPUUsage[property])
-      })
+
+      Object.keys(CPUUsage).forEach(property => this.gauge(`cpu.${property}`, CPUUsage[property]))
+
       previousCPUUsage = CPUUsage
     }, this.interval)
+
+    this.logger.debug('Gauge CPU activated every %s seconds', this.interval / 1000)
   }
 
   timing () {

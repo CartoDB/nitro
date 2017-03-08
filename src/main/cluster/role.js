@@ -22,4 +22,8 @@ export default class Role {
   static get (clusterOn) {
     return this.isLeader(clusterOn) ? LEADER : SERVER
   }
+
+  static getName (clusterOn) {
+    return this.isLeader(clusterOn) ? 'leader' : 'server'
+  }
 }
