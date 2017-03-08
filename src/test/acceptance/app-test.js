@@ -24,7 +24,7 @@ describe('end-to-end app examples', function () {
 
     assert.ok(res.ok)
     assert.equal(res.status, 200)
-    assert.equal(res.headers.get('content-type'), 'text/html')
+    assert.equal(res.headers.get('content-type'), 'application/octet-stream')
 
     assert.equal(body, 'Hello World\n')
   })
