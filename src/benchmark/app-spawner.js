@@ -26,7 +26,7 @@ export default class AppSpawner {
   }
 
   stop () {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       this.app.kill()
       resolve()
     })
