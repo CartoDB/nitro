@@ -14,9 +14,9 @@ export default class AppSpawner {
       })
 
       this.app.on('error', err => reject(err))
-      this.app.on('close', () => reject())
-      this.app.on('disconnect', () => reject())
-      this.app.on('exit', () => reject())
+      this.app.on('close', () => reject(new Error('close')))
+      this.app.on('disconnect', () => reject(new Error('disconnect')))
+      this.app.on('exit', () => reject(new Error('exit')))
 
       this.app.on('message', message => message.port
         ? resolve(message.port)
