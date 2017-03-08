@@ -1,4 +1,4 @@
-import ErrorMessage from './utils/error-message'
+import ErrorMessage from '../../../utils/error-message'
 
 export default class MiddlewareInterface {
   constructor () {
