@@ -27,6 +27,7 @@
   "dependencies": {
     "bunyan": "1.8.8",
     "koa": "2.1.0",
+    "lodash.defaultsdeep": "4.6.0",
     "meow": "3.7.0",
     "node-statsd": "0.1.1",
     "node-uuid": "1.4.7",
