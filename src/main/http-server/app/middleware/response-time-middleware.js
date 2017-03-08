@@ -3,11 +3,11 @@ import Middleware from './middleware'
 export default class ResponseTimeMiddleware extends Middleware {
   middleware () {
     return async (ctx, next) => {
-      const start = new Date()
+      const start = Date.now()
       await next()
-      const elapsed = new Date() - start
+      const delta = Math.ceil(Date.now() - start)
 
-      ctx.set('X-Response-Time', elapsed)
+      ctx.set('X-Response-Time', `${delta}ms`)
     }
   }
 }
