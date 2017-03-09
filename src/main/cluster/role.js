@@ -1,5 +1,5 @@
 import { isMaster } from 'cluster'
-import ErrorMessage from '../utils/error-message'
+import { AbstractClassError } from '../errors/errors'
 
 export const LEADER = Symbol('leader')
 export const SERVER = Symbol('server')
@@ -7,7 +7,7 @@ export const SERVER = Symbol('server')
 export default class Role {
   constructor () {
     if (new.target === Role) {
-      throw new Error(ErrorMessage.cannotConstructed(Role.name))
+      throw new AbstractClassError(Role.name)
     }
   }
 

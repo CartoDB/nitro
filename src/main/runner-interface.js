@@ -1,21 +1,21 @@
-import ErrorMessage from './utils/error-message'
+import { AbstractClassError, UnimplementedError } from './errors/errors'
 
 export default class RunnerInterface {
   constructor () {
     if (new.target === RunnerInterface) {
-      throw new Error(ErrorMessage.cannotConstructed(RunnerInterface.name))
+      throw new AbstractClassError(RunnerInterface.name)
     }
   }
 
   run () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   close () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   exit () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 }

@@ -1,10 +1,10 @@
 import MiddlewareInterface from './middleware-interface'
-import ErrorMessage from '../../../utils/error-message'
+import { ParentClassError } from '../../../errors/errors'
 
 export default class AppMiddlewares extends Set {
   add (middleware) {
     if (!(middleware instanceof MiddlewareInterface)) {
-      throw new Error(ErrorMessage.mustBe(middleware.constructor.name, MiddlewareInterface.name))
+      throw new ParentClassError(middleware.constructor.name, MiddlewareInterface.name)
     }
 
     super.add(middleware)

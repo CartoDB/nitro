@@ -1,10 +1,10 @@
 import ListenerInterface from './listener-interface'
-import ErrorMessage from './utils/error-message'
+import { ParentClassError } from './errors/errors'
 
 export default class Listeners extends Set {
   add (listener) {
     if (!(listener instanceof ListenerInterface)) {
-      throw new Error(ErrorMessage.mustBe(listener.constructor.name, ListenerInterface.name))
+      throw new ParentClassError(listener.constructor.name, ListenerInterface.name)
     }
 
     super.add(listener)

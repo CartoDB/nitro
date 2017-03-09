@@ -1,17 +1,17 @@
-import ErrorMessage from '../../../utils/error-message'
+import { AbstractClassError, UnimplementedError } from '../../../errors/errors'
 
 export default class MiddlewareInterface {
   constructor () {
     if (new.target === MiddlewareInterface) {
-      throw new Error(ErrorMessage.cannotConstructed(MiddlewareInterface.name))
+      throw new AbstractClassError(MiddlewareInterface.name)
     }
   }
 
   regist () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   middleware () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 }

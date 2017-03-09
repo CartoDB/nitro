@@ -1,10 +1,10 @@
 import ListenerInterface from './listener-interface'
-import ErrorMessage from './utils/error-message'
+import { AbstractClassError } from './errors/errors'
 
 export default class ListenerAbstract extends ListenerInterface {
   constructor (emitter, logger) {
     if (new.target === ListenerAbstract) {
-      throw new Error(ErrorMessage.cannotConstructed(ListenerAbstract.name))
+      throw new AbstractClassError(ListenerAbstract.name)
     }
 
     super()

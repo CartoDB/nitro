@@ -1,29 +1,29 @@
-import ErrorMessage from '../utils/error-message'
+import { AbstractClassError, UnimplementedError } from '../errors/errors'
 
 export default class LoggerInterface {
   constructor () {
     if (new.target === LoggerInterface) {
-      throw new Error(ErrorMessage.cannotConstructed(LoggerInterface.name))
+      throw new AbstractClassError(LoggerInterface.name)
     }
   }
 
   debug () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   log () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   info () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   warn () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   error () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 }

@@ -1,5 +1,5 @@
 import RunnerInterface from '../runner-interface'
-import ErrorMessage from '../utils/error-message'
+import { NotReadyError } from '../errors/errors'
 
 export default class HttpServer extends RunnerInterface {
   constructor (app, port, logger) {
@@ -15,7 +15,7 @@ export default class HttpServer extends RunnerInterface {
       this.httpServer = this.app.listen(this.port)
 
       if (!this.httpServer) {
-        return reject(new Error(ErrorMessage.notReady('Server')))
+        return reject(new NotReadyError('Server'))
       }
 
       this.httpServer.once('error', err => reject(err))

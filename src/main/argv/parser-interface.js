@@ -1,13 +1,13 @@
-import ErrorMessage from '../utils/error-message'
+import { AbstractClassError, UnimplementedError } from '../errors/errors'
 
 export default class ParserInterface {
   constructor () {
     if (new.target === ParserInterface) {
-      throw new Error(ErrorMessage.cannotConstructed(ParserInterface.name))
+      throw new AbstractClassError(ParserInterface.name)
     }
   }
 
   parse () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 }

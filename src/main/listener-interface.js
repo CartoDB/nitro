@@ -1,17 +1,17 @@
-import ErrorMessage from './utils/error-message'
+import { AbstractClassError, UnimplementedError } from './errors/errors'
 
 export default class ListenerInterface {
   constructor () {
     if (new.target === ListenerInterface) {
-      throw new Error(ErrorMessage.cannotConstructed(ListenerInterface.name))
+      throw new AbstractClassError(ListenerInterface.name)
     }
   }
 
   listen () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   remove () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 }

@@ -1,29 +1,29 @@
-import ErrorMessage from '../utils/error-message'
+import { AbstractClassError, UnimplementedError } from '../errors/errors'
 
 export default class MetricsInterface {
   constructor () {
     if (new.target === MetricsInterface) {
-      throw new Error(ErrorMessage.cannotConstructed(MetricsInterface.name))
+      throw new AbstractClassError(MetricsInterface.name)
     }
   }
 
   timing () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   gauge () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   logOnError () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   gaugeMemory () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 
   increment () {
-    throw new Error(ErrorMessage.unimplementedMethod())
+    throw new UnimplementedError()
   }
 }

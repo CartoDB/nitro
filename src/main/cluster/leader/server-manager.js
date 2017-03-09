@@ -1,4 +1,4 @@
-import ErrorMessage from '../../utils/error-message'
+import { ExitError } from '../../errors/errors'
 
 export default class ServerManager {
   constructor (cluster, sigusr2Listener, serverExitListener, sighupListener, logger) {
@@ -82,7 +82,7 @@ export default class ServerManager {
 
       server.once('exit', () => {
         if (!server.exitedAfterDisconnect) {
-          return reject(new Error(ErrorMessage.exited('Server')))
+          return reject(new ExitError('Server'))
         }
 
         const newServer = this.fork()

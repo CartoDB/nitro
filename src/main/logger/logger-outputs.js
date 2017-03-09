@@ -1,10 +1,10 @@
 import LoggerOutputInterface from './logger-output-interface'
-import ErrorMessage from '../utils/error-message'
+import { ParentClassError } from '../errors/errors'
 
 export default class LoggerOutputs extends Set {
   add (output) {
     if (!(output instanceof LoggerOutputInterface)) {
-      throw new Error(ErrorMessage.mustBe(output.constructor.name, LoggerOutputInterface.name))
+      throw new ParentClassError(output.constructor.name, LoggerOutputInterface.name)
     }
 
     if (output.isAvailable()) {
