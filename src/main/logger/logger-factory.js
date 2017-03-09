@@ -19,7 +19,7 @@ export default class LoggerFactory extends FactoryInterface {
     }
 
     const name = options.name
-    const role = Role.get(options.cluster.enabled)
+    const role = Role.getName(options.cluster.enabled)
     const path = options.logger.path
     const consoleEnabled = options.logger.console
 
