@@ -4,7 +4,6 @@ import DisabledLogger from './disabled-logger'
 import LoggerOutputs from './logger-outputs'
 import ConsoleOutput from './console-output'
 import FileOutput from './file-output'
-import Role from '../cluster/role'
 import Bunyan from 'bunyan'
 import SighupListener from './sighup-listener'
 import LogCommandListener from './log-command-listener'
@@ -19,7 +18,7 @@ export default class LoggerFactory extends FactoryInterface {
     }
 
     const name = options.name
-    const role = Role.getName(options.cluster.enabled)
+    const role = options.cluster.role
     const path = options.logger.path
     const consoleEnabled = options.logger.console
 

@@ -4,13 +4,15 @@ import LauncherFactory from './launcher/launcher-factory'
 import defaults from './config/defaults'
 import defaultsDeep from 'lodash.defaultsdeep'
 import ArgumentParser from './argv/argument-parser'
+import Role, { LEADER, SERVER } from './cluster/role'
 
-export { LEADER, SERVER } from './cluster/role'
+export { LEADER, SERVER }
 
 export default class Nitro {
   constructor (clientOptions = {}) {
     const argsOptions = ArgumentParser.parse()
     const options = defaultsDeep({}, argsOptions, clientOptions, defaults)
+    options.cluster.role = Role.getName(options.cluster.enabled)
 
     this._logger = LoggerFactory.create(options)
     this._metrics = MetricsFactory.create(this._logger, options)
