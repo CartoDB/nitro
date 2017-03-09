@@ -1,20 +1,24 @@
-import ArgumentParser from '../argv/argument-parser'
+import path from 'path'
+import readPkgUp from 'read-pkg-up'
 
-const argv = ArgumentParser.parse()
+const pkg = readPkgUp.sync({
+  cwd: process.cwd(),
+  normalize: false
+}).pkg
 
-module.exports = {
-  name: argv.name,
-  port: argv.port,
+export default {
+  name: pkg.name,
+  port: 3000,
   cluster: {
-    enabled: argv.cluster
+    enabled: false
   },
   logger: {
-    enabled: argv.logger,
-    console: argv.console,
-    path: argv.logPath
+    enabled: true,
+    console: (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined),
+    path: path.join(process.cwd(), pkg.name + '.log')
   },
   metrics: {
-    enabled: argv.metrics,
+    enabled: false,
     host: 'localhost',
     port: 8125,
     interval: 5000
