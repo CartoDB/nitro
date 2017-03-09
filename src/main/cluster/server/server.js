@@ -1,4 +1,4 @@
-import Role from '../role'
+import Role, { SERVER } from '../role'
 import ClusterInterface from '../cluster-interface'
 
 export default class Server extends ClusterInterface {
@@ -13,7 +13,7 @@ export default class Server extends ClusterInterface {
   }
 
   get role () {
-    return Role.SERVER
+    return SERVER
   }
 
   get app () {

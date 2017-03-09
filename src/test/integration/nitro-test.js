@@ -1,5 +1,5 @@
 import assert from 'assert'
-import Nitro from '../../'
+import Nitro, { SERVER } from '../../'
 
 describe('nitro OOP API', function () {
   beforeEach(function () {
@@ -20,8 +20,8 @@ describe('nitro OOP API', function () {
     })
   })
 
-  it(`.role should return ${Nitro.SERVER}`, function () {
-    assert.equal(this.nitro.role, Nitro.SERVER)
+  it(`.role should return server`, function () {
+    assert.equal(this.nitro.role, SERVER)
   })
 
   it('.logger should return a logger provider', function () {
@@ -65,8 +65,8 @@ describe('nitro FP API', function () {
     })
   })
 
-  it(`.role should return ${Nitro.SERVER}`, function () {
-    assert.equal(this.role, Nitro.SERVER)
+  it(`.role should return server`, function () {
+    assert.equal(this.role, SERVER)
   })
 
   it('.logger should return a logger provider', function () {

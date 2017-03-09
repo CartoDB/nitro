@@ -1,5 +1,5 @@
 import os from 'os'
-import Role from '../role'
+import Role, { LEADER } from '../role'
 import ClusterInterface from '../cluster-interface'
 
 export default class Leader extends ClusterInterface {
@@ -15,7 +15,7 @@ export default class Leader extends ClusterInterface {
   }
 
   get role () {
-    return Role.LEADER
+    return LEADER
   }
 
   get app () {

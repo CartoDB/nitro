@@ -31,6 +31,6 @@ const options = {
 
 const flags = meow({ help }, options).flags
 const Example = examples.get(flags.name)
-const example = new Example()
+const example = new Example(flags)
 
 example.start()
