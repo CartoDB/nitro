@@ -29,9 +29,16 @@ const appSpawner = new AppSpawner()
 const wrkSpawner = new WrkSpawner()
 const benchPrinter = new BenchPrinter(flags.release)
 
-appSpawner.run()
-  .then(port => wrkSpawner.run(port))
-  .then(results => benchPrinter.print(results))
-  .then(() => appSpawner.stop())
-  .then(() => wrkSpawner.stop())
-  .catch(err => console.error(err))
+async function run () {
+  try {
+    const port = await appSpawner.run()
+    const results = await wrkSpawner.run(port)
+    await benchPrinter.print(results)
+    await appSpawner.stop()
+    await wrkSpawner.stop()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+run()
